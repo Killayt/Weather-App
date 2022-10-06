@@ -20,7 +20,13 @@ func hello(w http.ResponseWriter, r http.Request) {
 }
 
 func query(city string) (WeatherDate, error) {
-	apiConfig, err := config.LoadApiConfig
+	apiConfig, err := config.LoadApiConfig(".apiConfig")
+	if err != nil {
+		return WeatherDate{}, err
+	}
+
+	lang := "{rus}" // Choose ur language
+	http.Get("https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&lang= " + lang + "&exclude={part}&appid=" + apiConfig.ApiKey)
 }
 
 func main() {
