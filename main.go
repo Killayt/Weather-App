@@ -25,8 +25,15 @@ func query(city string) (WeatherDate, error) {
 		return WeatherDate{}, err
 	}
 
-	lang := "{rus}" // Choose ur language
-	http.Get("https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&lang= " + lang + "&exclude={part}&appid=" + apiConfig.ApiKey)
+	lang := "{ru}" // Choose ur language
+
+	http.Get("https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&lang= " + lang + "&exclude={part}&appid=" + apiConfig.ApiKey + "&q" + city)
+
+	if err != nil {
+		return WeatherDate{}, err
+	}
+
+	defer http.Response.Body.Close()
 }
 
 func main() {
