@@ -7,6 +7,7 @@ import (
 
 type apiConfigDate struct {
 	ApiKey string `json:"ApiKey"`
+	Lang   string `json:"Lang"`
 }
 
 func LoadApiConfig(filename string) (apiConfigDate, error) {

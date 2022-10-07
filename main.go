@@ -25,15 +25,19 @@ func query(city string) (WeatherDate, error) {
 		return WeatherDate{}, err
 	}
 
-	lang := "{ru}" // Choose ur language
-
-	http.Get("https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&lang= " + lang + "&exclude={part}&appid=" + apiConfig.ApiKey + "&q" + city)
-
+	resp, err := http.Get("https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&lang= " + apiConfig.Lang + "&exclude={part}&appid=" + apiConfig.ApiKey + "&q" + city)
 	if err != nil {
 		return WeatherDate{}, err
 	}
 
-	defer http.Response.Body.Close()
+	defer resp.Body.Close()
+
+	var d WeatherDate
+	if err := json.NewDecoder(resp.Body).Decode(&d); err != nil {
+		return WeatherDate{}, err
+	}
+
+	return d, nil
 }
 
 func main() {
@@ -42,8 +46,8 @@ func main() {
 
 	http.HandleFunc("/weather/",
 		func(w http.ResponseWriter, r *http.Request) {
-			city := strings.SplitN(r.URL.Path, "/", 3)[2]
 
+			city := strings.SplitN(r.URL.Path, "/", 3)[2]
 			date, err := query(city)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -51,6 +55,7 @@ func main() {
 			}
 			w.Header().Set("Content-Type", "application/json; charset=utf-8")
 			json.NewEncoder(w).Encode(date)
+
 		})
 
 	http.ListenAndServe(":"+port, nil)
