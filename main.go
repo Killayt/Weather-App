@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Killayt/Weather-App/config"
+	cfg "github.com/Killayt/Weather-App/config"
 )
 
 type WeatherDate struct {
@@ -20,12 +20,12 @@ func hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func query(city string) (WeatherDate, error) {
-	apiConfig, err := config.LoadApiConfig(".apiConfig")
+	apiConfig, err := cfg.LoadApiConfig(".apiConfig")
 	if err != nil {
 		return WeatherDate{}, err
 	}
 
-	resp, err := http.Get("https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&lang= " + apiConfig.Lang + "&exclude={part}&appid=" + apiConfig.ApiKey + "&q" + city)
+	resp, err := http.Get("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiConfig.ApiKey)
 	if err != nil {
 		return WeatherDate{}, err
 	}
