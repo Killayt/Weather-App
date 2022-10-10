@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/Killayt/Weather-App/config"
+	"github.com/Killayt/Weather-App/gui"
 )
 
 type WeatherDate struct {
@@ -57,11 +58,14 @@ func weather(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
+	// GUI
+	gui.MakeGUI()
+
+	// server
 	const port string = "9000"
-
 	http.HandleFunc("/check", check)
-
 	http.HandleFunc("/weather/", weather)
-
 	http.ListenAndServe(":"+port, nil)
+
 }
