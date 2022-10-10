@@ -1,26 +1,3 @@
-# fyne.io/fyne v1.4.3
-## explicit; go 1.12
-fyne.io/fyne
-fyne.io/fyne/app
-fyne.io/fyne/canvas
-fyne.io/fyne/driver/desktop
-fyne.io/fyne/driver/mobile
-fyne.io/fyne/internal
-fyne.io/fyne/internal/app
-fyne.io/fyne/internal/cache
-fyne.io/fyne/internal/driver
-fyne.io/fyne/internal/driver/glfw
-fyne.io/fyne/internal/driver/gomobile
-fyne.io/fyne/internal/painter
-fyne.io/fyne/internal/painter/gl
-fyne.io/fyne/internal/painter/software
-fyne.io/fyne/internal/test
-fyne.io/fyne/internal/widget
-fyne.io/fyne/layout
-fyne.io/fyne/storage
-fyne.io/fyne/test
-fyne.io/fyne/theme
-fyne.io/fyne/widget
 # fyne.io/fyne/v2 v2.2.3
 ## explicit; go 1.14
 fyne.io/fyne/v2
@@ -85,19 +62,6 @@ github.com/fyne-io/glfw-js
 # github.com/fyne-io/image v0.0.0-20220602074514-4956b0afb3d2
 ## explicit; go 1.14
 github.com/fyne-io/image/ico
-# github.com/fyne-io/mobile v0.1.2
-## explicit; go 1.11
-github.com/fyne-io/mobile/app
-github.com/fyne-io/mobile/app/internal/callfn
-github.com/fyne-io/mobile/event/key
-github.com/fyne-io/mobile/event/lifecycle
-github.com/fyne-io/mobile/event/paint
-github.com/fyne-io/mobile/event/size
-github.com/fyne-io/mobile/event/touch
-github.com/fyne-io/mobile/exp/f32
-github.com/fyne-io/mobile/geom
-github.com/fyne-io/mobile/gl
-github.com/fyne-io/mobile/internal/mobileinit
 # github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6
 ## explicit; go 1.12
 github.com/go-gl/gl/v2.1/gl

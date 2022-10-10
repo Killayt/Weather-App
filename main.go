@@ -17,7 +17,7 @@ type WeatherDate struct {
 
 // Check connetion
 func Check(w http.ResponseWriter, r *http.Request) {
-	_, err := w.Write([]byte("Hello!\nYes, Its works"))
+	_, err := w.Write([]byte("Hello!\nYes, it`s works!"))
 	if err != nil {
 		w.Write([]byte(err.Error()))
 	}
@@ -62,7 +62,8 @@ func main() {
 
 	// server
 	const port string = "9000"
-	http.HandleFunc("/check", Check)
+
+	http.HandleFunc("/", Check)
 	http.HandleFunc("/weather/", Weather)
 	http.ListenAndServe(":"+port, nil)
 
