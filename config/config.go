@@ -44,10 +44,12 @@ func Weather(w http.ResponseWriter, r *http.Request) {
 }
 
 func Target(city string) (WeatherDate, error) {
-	apiConfig, err := LoadApiConfig(".apiConfig")
+	apiConfig, err := LoadApiConfig(".apiConfig") // Loading API Key
 	if err != nil {
 		return WeatherDate{}, err
 	}
+
+	/////////////////////////////////
 
 	resp, err := http.Get("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&appid=" + apiConfig.ApiKey)
 	if err != nil {

@@ -17,11 +17,11 @@ func Check(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	// server
-	const port string = "9000"
+	var Port string = "9000"
 
 	go http.HandleFunc("/", Check)
 	go http.HandleFunc("/weather/", config.Weather)
-	go http.ListenAndServe(":"+port, nil)
+	go http.ListenAndServe(":"+Port, nil)
 
 	// gui
 	gui.MakeGUI()
