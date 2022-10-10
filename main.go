@@ -6,26 +6,24 @@ import (
 	"strings"
 
 	"github.com/Killayt/Weather-App/config"
-	"github.com/Killayt/Weather-App/gui"
 )
 
 type WeatherDate struct {
 	Name string `json:"name"`
 	Main struct {
-		Celsius float64 `json:"temperature"`
+		Celsius float64 `json:"temp"`
 	} `json:"main"`
 }
 
-func check(w http.ResponseWriter, r *http.Request) {
-
+// Check connetion
+func Check(w http.ResponseWriter, r *http.Request) {
 	_, err := w.Write([]byte("Hello!\nYes, Its works"))
-
 	if err != nil {
 		w.Write([]byte(err.Error()))
 	}
 }
 
-func target(city string) (WeatherDate, error) {
+func Target(city string) (WeatherDate, error) {
 	apiConfig, err := config.LoadApiConfig(".apiConfig")
 	if err != nil {
 		return WeatherDate{}, err
@@ -46,9 +44,9 @@ func target(city string) (WeatherDate, error) {
 	return d, nil
 }
 
-func weather(w http.ResponseWriter, r *http.Request) {
+func Weather(w http.ResponseWriter, r *http.Request) {
 	city := strings.SplitN(r.URL.Path, "/", 3)[2]
-	date, err := target(city)
+	date, err := Target(city)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
@@ -60,12 +58,12 @@ func weather(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	// GUI
-	gui.MakeGUI()
+	// gui.MakeGUI()
 
 	// server
 	const port string = "9000"
-	http.HandleFunc("/check", check)
-	http.HandleFunc("/weather/", weather)
+	http.HandleFunc("/check", Check)
+	http.HandleFunc("/weather/", Weather)
 	http.ListenAndServe(":"+port, nil)
 
 }
