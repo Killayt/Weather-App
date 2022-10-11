@@ -11,7 +11,7 @@ type apiConfigDate struct {
 	ApiKey string `json:"ApiKey"`
 }
 
-type WeatherDate struct {
+type WeatherData struct {
 	Name string `json:"name"`
 	Main struct {
 		Celsius float64 `json:"temp"`
@@ -41,26 +41,27 @@ func Weather(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	json.NewEncoder(w).Encode(date)
+
 }
 
-func Target(city string) (WeatherDate, error) {
+func Target(city string) (WeatherData, error) {
 	apiConfig, err := LoadApiConfig(".apiConfig") // Loading API Key
 	if err != nil {
-		return WeatherDate{}, err
+		return WeatherData{}, err
 	}
 
-	/////////////////////////////////
+	// Request
 
 	resp, err := http.Get("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&appid=" + apiConfig.ApiKey)
 	if err != nil {
-		return WeatherDate{}, err
+		return WeatherData{}, err
 	}
 
 	defer resp.Body.Close()
 
-	var d WeatherDate
+	var d WeatherData
 	if err := json.NewDecoder(resp.Body).Decode(&d); err != nil {
-		return WeatherDate{}, err
+		return WeatherData{}, err
 	}
 
 	return d, nil
